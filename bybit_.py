@@ -19,12 +19,13 @@ def price(symbol):
         res = session_unauth.latest_information_for_symbol(
             symbol=symbol,
         )
+        price = res["result"][0]["last_price"]
+        return price
     except Exception as e:
         print(e)
         return 0
 
-    price = res["result"][0]["last_price"]
-    return price
+
 
 def entry(symbol:str,side:str,qty:str):
     qty = float(qty)
