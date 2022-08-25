@@ -2,12 +2,16 @@ from binance.um_futures import UMFutures
 
 key = ""
 secret = ""
-
-um_futures_client = UMFutures(key=key, secret=secret)
+testnet = "https://testnet.binancefuture.com/"
+um_futures_client = UMFutures(key=key, secret=secret,base_url=testnet)
 
 def price(symbol):
-    res = um_futures_client.ticker_price(symbol)
-    return res["price"]
+    try:
+        res = um_futures_client.ticker_price(symbol)
+        return res["price"]
+    except Exception as e:
+        print(e)
+        return 0
 
 def entry(symbol:str,side:str,qty:str):
     qty = float(qty)
@@ -15,14 +19,17 @@ def entry(symbol:str,side:str,qty:str):
         side = "BUY"
     else:
         side = "SELL"
-    res = um_futures_client.new_order(
-            symbol=symbol,
-            side=side,
-            type="MARKET",
-            quantity=qty,
-            timeInForce="GTC",
-        )
-    print(res)
+    try:
+        res = um_futures_client.new_order(
+                symbol=symbol,
+                side=side,
+                type="MARKET",
+                quantity=qty
+            )
+        print(res)
+    except Exception as e:
+        print(e)
+        return 0
 
 def close(symbol:str,side:str,qty:str):
     qty = float(qty)
@@ -30,12 +37,15 @@ def close(symbol:str,side:str,qty:str):
         side = "BUY"
     else:
         side = "SELL"
-    res = um_futures_client.new_order(
-            symbol=symbol,
-            side=side,
-            type="MARKET",
-            quantity=qty,
-            timeInForce="GTC",
-            reduceOnly="true"
-        )
-    print(res)
+    try:
+        res = um_futures_client.new_order(
+                symbol=symbol,
+                side=side,
+                type="MARKET",
+                quantity=qty,
+                reduceOnly="true"
+            )
+        print(res)
+    except Exception as e:
+        print(e)
+        return 0

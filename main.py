@@ -9,10 +9,10 @@ import order_
 
 # symbol名を入力
 SYMBOL = "BTCUSDT"
-# 注文サイズを入力
+# 注文サイズを入力R
 QTY = 0.001
 # エントリーしきい値を入力
-ENTRY_SIKIITI = 0.01
+ENTRY_SIKIITI = 0.03
 # イグジットしきい値を入力
 CLOSE_SIKIITI = 0.01
 symbol = SYMBOL
@@ -28,7 +28,10 @@ binance_price_y = []
 def animate(i):
 
     bybit_price = bybit_.price(symbol)
-    binance_price =binance_.price(symbol)
+    binance_price = binance_.price(symbol)
+
+    if bybit_price == 0 or binance_price == 0:
+        return
 
     # X軸
     x.append(len(num))
