@@ -1,0 +1,4 @@
+matplotlib
+binance-futures-connector
+pybit
+dataset
